@@ -5,7 +5,7 @@ variable "SearchService" {
 }
 
 module "SearchService" {
-  source   = "github.com/canada-ca-terraform-modules/terraform-azurerm-caf-search_service?ref=v1.0.0"
+  source   = "github.com/canada-ca-terraform-modules/terraform-azurerm-caf-search_service?ref=v1.0.1"
   for_each = var.SearchService
 
   userDefinedString    = each.key
