@@ -6,7 +6,7 @@ resource "azurerm_search_service" "search_service" {
 
   # Optional parameters
   public_network_access_enabled            = try(var.SearchService.public_network_access_enabled, false)
-  allowed_ips                              = try(var.SearchService.public_network_access_enabled, null)
+  allowed_ips                              = try(var.SearchService.allowed_ips, null)
   local_authentication_enabled             = try(var.SearchService.local_authentication_enabled, true)
   authentication_failure_mode              = try(var.SearchService.authentication_failure_mode, null)
   customer_managed_key_enforcement_enabled = try(var.SearchService.customer_managed_key_enforcement_enabled, false)
