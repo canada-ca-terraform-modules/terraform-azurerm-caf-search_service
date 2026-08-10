@@ -1,3 +1,7 @@
+terraform {
+  required_version = ">= 1.9"
+}
+
 variable "SearchService" {
   description = "Object containing all Search Service"
   type        = any
@@ -5,7 +9,7 @@ variable "SearchService" {
 }
 
 module "SearchService" {
-  source   = "github.com/canada-ca-terraform-modules/terraform-azurerm-caf-search_service?ref=v1.0.1"
+  source   = "github.com/canada-ca-terraform-modules/terraform-azurerm-caf-search_service?ref=v1.1.0"
   for_each = var.SearchService
 
   userDefinedString    = each.key

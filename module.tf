@@ -1,5 +1,5 @@
 resource "azurerm_search_service" "search_service" {
-  name                = local.searchservice-name
+  name                = try(var.SearchService.name, local.searchservice-name)
   location            = var.location
   resource_group_name = local.resource_group_name
   sku                 = var.SearchService.sku
@@ -11,6 +11,7 @@ resource "azurerm_search_service" "search_service" {
   authentication_failure_mode              = try(var.SearchService.authentication_failure_mode, null)
   customer_managed_key_enforcement_enabled = try(var.SearchService.customer_managed_key_enforcement_enabled, false)
   hosting_mode                             = try(var.SearchService.hosting_mode, null)
+  network_rule_bypass_option               = try(var.SearchService.network_rule_bypass_option, null)
   partition_count                          = try(var.SearchService.partition_count, 1)
   replica_count                            = try(var.SearchService.replica_count, null)
   semantic_search_sku                      = try(var.SearchService.semantic_search_sku, null)
@@ -20,15 +21,16 @@ resource "azurerm_search_service" "search_service" {
   dynamic "identity" {
     for_each = try(var.SearchService.identity, null) != null ? [1] : []
     content {
-      type = try(var.SearchService.identity.type, null)
+      type         = try(var.SearchService.identity.type, null)
+      identity_ids = try(var.SearchService.identity.identity_ids, null)
     }
   }
 }
 
 module "private_endpoint" {
-  source   = "github.com/canada-ca-terraform-modules/terraform-azurerm-caf-private_endpoint.git?ref=v1.0.1"
+  source   = "github.com/canada-ca-terraform-modules/terraform-azurerm-caf-private_endpoint.git?ref=v1.2.0"
   for_each = try(var.SearchService.private_endpoint, {})
- 
+
   name                           = "${local.searchservice-name}-${each.key}"
   location                       = var.location
   resource_groups                = var.resource_groups
