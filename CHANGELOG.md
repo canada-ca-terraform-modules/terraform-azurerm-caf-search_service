@@ -24,6 +24,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - Bumped `.github/workflows/documentation.yml` action pins: `actions/checkout` `v4.1.7` -> `v7.0.1`, `terraform-docs/gh-actions` `v1.2.0` -> `v1.4.1`.
 - Bumped `ESLZ/searchService.tf` module ref from `v1.0.1` to `v1.1.0`.
 
+### Fixed
+
+- `ESLZ/serachService.tfvars` example comments for `hosting_mode`/`partition_count` corrected from azurerm 4.x's lowercase enum casing (`default`/`highDensity`) to azurerm 5.x's PascalCase casing (`Default`/`HighDensity`).
+
+### Notes
+
+- This module's own resource arguments are fully backward-compatible — existing tfvars produce the same plan. The `providers.tf` constraint `azurerm ~> 5.0` is nonetheless a breaking requirement for any caller whose root configuration still pins `azurerm ~> 4.0` elsewhere: that caller must upgrade its own provider pin before adopting `v1.1.0`.
+
 ### Known blockers
 
 - None. Target `azurerm` provider version `5.0.1` was confirmed by the user; this is a real published release.
