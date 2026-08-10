@@ -10,9 +10,9 @@ SearchService = {
     # local_authentication_enabled             = true
     # authentication_failure_mode              = "http403" #can only be configured when using local_authentication_enabled is set to true
     # customer_managed_key_enforcement_enabled = false
-    # hosting_mode                             = default #can only be configured when sku is set to standard3
+    # hosting_mode                             = "Default" #can only be configured when sku is set to standard3; azurerm >= 5.0 values: Default, HighDensity
     # network_rule_bypass_option               = "AzureServices" #New in azurerm >= 5.0: possible values are None and AzureServices, defaults to None
-    # partition_count                          = 1 #when hosting_mode is set to highDensity the maximum number of partitions allowed is 3
+    # partition_count                          = 1 #when hosting_mode is set to HighDensity the maximum number of partitions allowed is 3
     # replica_count                            = 1 #This field cannot be set when using a free sku
     # semantic_search_sku                      = "standard" #cannot be defined if your Search Services sku is set to free
 
