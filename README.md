@@ -1,19 +1,72 @@
+# terraform-azurerm-caf-search_service
+
+Terraform CAF module that provisions an `azurerm_search_service`, with an optional
+`private_endpoint` child module per instance.
+
+## Usage
+
+### ESLZ module block (`ESLZ/searchService.tf`)
+
+```hcl
+module "SearchService" {
+  source   = "github.com/canada-ca-terraform-modules/terraform-azurerm-caf-search_service?ref=v1.1.0"
+  for_each = var.SearchService
+
+  userDefinedString    = each.key
+  env                  = var.env
+  group                = var.group
+  project              = var.project
+  resource_groups      = local.resource_groups_all
+  subnets              = local.subnets
+  SearchService        = each.value
+  private_dns_zone_ids = local.Project-dns-zone
+  tags                 = var.tags
+}
+```
+
+### ESLZ tfvars pattern (`ESLZ/serachService.tfvars`)
+
+See the file for a fully commented example, including the optional
+`network_rule_bypass_option`, `identity.identity_ids`, and `name` override
+arguments added for `azurerm >= 5.0`.
+
+## New arguments (azurerm >= 5.0)
+
+| Key | Type | Description |
+|---|---|---|
+| `SearchService.name` | string | Optional override of the auto-generated Search Service name |
+| `SearchService.network_rule_bypass_option` | string | Optional. `None` or `AzureServices`. Defaults to `None` |
+| `SearchService.identity.identity_ids` | list(string) | Optional. Required when `identity.type` includes `UserAssigned` |
+
+## Testing
+
+```bash
+terraform fmt -recursive && terraform init -backend=false && terraform validate && terraform test
+```
+
+## CI
+
+GitHub Actions workflow at `.github/workflows/terraform-ci.yml` runs fmt, init, validate, and test on every PR.
+
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
 
-No requirements.
+| Name | Version |
+|------|---------|
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.9 |
+| <a name="requirement_azurerm"></a> [azurerm](#requirement\_azurerm) | ~> 5.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_azurerm"></a> [azurerm](#provider\_azurerm) | n/a |
+| <a name="provider_azurerm"></a> [azurerm](#provider\_azurerm) | ~> 5.0 |
 
 ## Modules
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_private_endpoint"></a> [private\_endpoint](#module\_private\_endpoint) | github.com/canada-ca-terraform-modules/terraform-azurerm-caf-private_endpoint.git | v1.0.1 |
+| <a name="module_private_endpoint"></a> [private\_endpoint](#module\_private\_endpoint) | github.com/canada-ca-terraform-modules/terraform-azurerm-caf-private_endpoint.git | v1.2.0 |
 
 ## Resources
 
