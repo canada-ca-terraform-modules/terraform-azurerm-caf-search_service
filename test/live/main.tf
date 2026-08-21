@@ -1,4 +1,5 @@
 terraform {
+  # no-op: touch this file so PR B's diff matches live-test.yml's pull_request path filter
   required_version = ">= 1.9"
   required_providers {
     azurerm = {
