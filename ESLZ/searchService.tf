@@ -12,6 +12,7 @@ module "SearchService" {
   source   = "github.com/canada-ca-terraform-modules/terraform-azurerm-caf-search_service?ref=v1.1.0"
   for_each = var.SearchService
 
+  location              = try(each.value.location, var.location)
   userDefinedString    = each.key
   env                  = var.env
   group                = var.group

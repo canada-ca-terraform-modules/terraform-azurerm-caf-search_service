@@ -32,7 +32,7 @@ module "private_endpoint" {
   for_each = try(var.SearchService.private_endpoint, {})
 
   name                           = "${local.searchservice-name}-${each.key}"
-  location                       = var.location
+  location                       = try(each.value.location, var.location) # allow the override of the location so the PE can match the vnet location
   resource_groups                = var.resource_groups
   subnets                        = var.subnets
   private_connection_resource_id = azurerm_search_service.search_service.id

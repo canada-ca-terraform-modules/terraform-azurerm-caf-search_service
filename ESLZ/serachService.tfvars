@@ -4,7 +4,8 @@ SearchService = {
     sku            = "standard"
 
     # Optional: Uncomment if you want to set any of these parameters to values other than the defaults below. 
-    # name                                      = "" #Optional: Override the auto-generated Search Service name (default: {env}-{group}-{project}-{userDefinedString}-ss)
+    # location                                 = "canadacentral" # Optional: Override the location for the Search Service  
+    # name                                     = "" #Optional: Override the auto-generated Search Service name (default: {env}-{group}-{project}-{userDefinedString}-ss)
     # public_network_access_enabled            = false
     # allowed_ips                              = ["1.2.3.4", "5.6.7.0/24"] #only applied if the public_network_access_enabled field has been set
     # local_authentication_enabled             = true
@@ -27,6 +28,7 @@ SearchService = {
         resource_group    = "Project"         # Required: Resource group name, i.e Project, Management, DNS, etc, or the resource group ID
         subnet            = "OZ"              # Required: Subnet name, i.e OZ,MAZ, etc, or the subnet ID
         subresource_names = ["searchService"] # Required: Subresource name determines to what service the private endpoint will connect to. see: https://learn.microsoft.com/en-us/azure/private-link/private-endpoint-overview#private-link-resource for list of subresrouce
+        # location          = "canadacentral" # Optional: Override the location for the private endpoint if different from the resource location
         # local_dns_zone    = "privatelink.blob.core.windows.net" # Optional: Name of the local DNS zone for the private endpoint
       }
     }
